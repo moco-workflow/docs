@@ -1,0 +1,174 @@
+/**
+ * Moco docs theme.
+ *
+ * The values below are the console's design tokens (moco-ui/src/index.css)
+ * translated into the Infima variables Docusaurus actually reads, so the docs
+ * sit in the same visual system as the console, the agent and the playground
+ * rather than wearing the Docusaurus default green. When a colour changes in
+ * moco-ui/src/index.css, change it here too — there is no build step tying the
+ * two together.
+ *
+ * Infima wants hex/`rgb()`, not the bare HSL channels Tailwind stores, so each
+ * token is written out as `hsl(...)`; the comment on each block names the
+ * console token it came from.
+ */
+
+:root {
+  /* --primary: 243 75% 58% */
+  --ifm-color-primary: hsl(243, 75%, 58%);
+  --ifm-color-primary-dark: hsl(243, 65%, 52%);
+  --ifm-color-primary-darker: hsl(243, 65%, 49%);
+  --ifm-color-primary-darkest: hsl(243, 65%, 40%);
+  --ifm-color-primary-light: hsl(243, 80%, 65%);
+  --ifm-color-primary-lighter: hsl(243, 82%, 69%);
+  --ifm-color-primary-lightest: hsl(243, 85%, 78%);
+
+  /* --background / --card / --foreground */
+  --ifm-background-color: hsl(240, 20%, 99%);
+  --ifm-background-surface-color: hsl(0, 0%, 100%);
+  --ifm-font-color-base: hsl(240, 10%, 9%);
+  --ifm-heading-color: hsl(240, 10%, 9%);
+
+  /* --muted-foreground / --border */
+  --ifm-color-emphasis-600: hsl(240, 4%, 46%);
+  --ifm-color-content-secondary: hsl(240, 4%, 46%);
+  --ifm-toc-border-color: hsl(240, 6%, 90%);
+  --ifm-hr-border-color: hsl(240, 6%, 90%);
+
+  /* --sidebar, and the same frosted top bar the console uses */
+  --ifm-navbar-background-color: hsl(240, 20%, 99%);
+  --ifm-navbar-shadow: inset 0 -1px 0 hsl(240, 6%, 90%);
+  --ifm-menu-color-background-active: hsl(240, 6%, 94%);
+  --ifm-menu-color-background-hover: hsl(240, 6%, 94%);
+
+  /* --card, so an inline `code` reads as a raised chip like it does in the app */
+  --ifm-code-background: hsl(240, 5%, 96%);
+  --ifm-pre-background: hsl(240, 14%, 97%);
+
+  /* --overlay */
+  --ifm-footer-background-color: hsl(240, 12%, 8%);
+
+  /* Type and shape: Inter + JetBrains Mono, --radius: 0.625rem */
+  --ifm-font-family-base: 'Inter', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  --ifm-font-family-monospace: 'JetBrains Mono', ui-monospace, SFMono-Regular,
+    Menlo, Consolas, 'Liberation Mono', monospace;
+  --ifm-global-radius: 0.625rem;
+  --ifm-code-font-size: 88%;
+  --ifm-code-border-radius: 0.375rem;
+
+  --docusaurus-highlighted-code-line-bg: hsl(243, 75%, 58%, 0.1);
+}
+
+[data-theme='dark'] {
+  /* The `.dark` block of moco-ui/src/index.css, token for token. */
+  --ifm-color-primary: hsl(243, 82%, 70%);
+  --ifm-color-primary-dark: hsl(243, 75%, 63%);
+  --ifm-color-primary-darker: hsl(243, 72%, 58%);
+  --ifm-color-primary-darkest: hsl(243, 70%, 50%);
+  --ifm-color-primary-light: hsl(243, 85%, 76%);
+  --ifm-color-primary-lighter: hsl(243, 88%, 80%);
+  --ifm-color-primary-lightest: hsl(243, 90%, 86%);
+
+  --ifm-background-color: hsl(240, 10%, 5%);
+  --ifm-background-surface-color: hsl(240, 7%, 8%);
+  --ifm-font-color-base: hsl(0, 0%, 96%);
+  --ifm-heading-color: hsl(0, 0%, 96%);
+
+  --ifm-color-emphasis-600: hsl(240, 5%, 62%);
+  --ifm-color-content-secondary: hsl(240, 5%, 62%);
+  --ifm-toc-border-color: hsl(240, 5%, 18%);
+  --ifm-hr-border-color: hsl(240, 5%, 18%);
+
+  --ifm-navbar-background-color: hsl(240, 10%, 5%);
+  --ifm-navbar-shadow: inset 0 -1px 0 hsl(240, 5%, 18%);
+  --ifm-menu-color-background-active: hsl(240, 5%, 13%);
+  --ifm-menu-color-background-hover: hsl(240, 5%, 13%);
+
+  --ifm-code-background: hsl(240, 5%, 15%);
+  --ifm-pre-background: hsl(240, 6%, 11%);
+
+  --ifm-footer-background-color: hsl(240, 14%, 2%);
+
+  --docusaurus-highlighted-code-line-bg: hsl(243, 82%, 70%, 0.14);
+}
+
+/* `footer: {style: 'dark'}` re-declares the background against Infima's own
+   gray-900, scoped to the element, so the :root value above never reaches it. */
+.footer--dark {
+  --ifm-footer-background-color: hsl(240, 12%, 8%);
+  --ifm-footer-link-color: hsl(240, 5%, 72%);
+  --ifm-footer-title-color: hsl(0, 0%, 96%);
+}
+
+[data-theme='dark'] .footer--dark {
+  --ifm-footer-background-color: hsl(240, 14%, 2%);
+}
+
+/* The doc sidebar is the console's `--sidebar` surface, not the page canvas. */
+.theme-doc-sidebar-container {
+  background: hsl(240, 14%, 97%);
+  border-right-color: hsl(240, 6%, 91%);
+}
+
+[data-theme='dark'] .theme-doc-sidebar-container {
+  background: hsl(240, 8%, 7%);
+  border-right-color: hsl(240, 5%, 15%);
+}
+
+/* Matches `.surface-blur` in moco-ui: the bar stays legible over scrolled content. */
+.navbar {
+  backdrop-filter: blur(12px);
+  background: hsl(240, 20%, 99%, 0.8);
+}
+
+/*
+ * A backdrop-filter makes the navbar the containing block for its fixed-position
+ * children, and the mobile menu (`.navbar-sidebar`, which holds the doc sidebar
+ * on narrow screens) is one of them: it would be clipped to the bar's 60px and
+ * the docs become unnavigable. Drop the blur while that menu is open.
+ */
+.navbar.navbar-sidebar--show {
+  backdrop-filter: none;
+}
+
+[data-theme='dark'] .navbar {
+  background: hsl(240, 10%, 5%, 0.8);
+}
+
+/* The console rounds its mark to 8/32 of the box; keep it from rendering square. */
+.navbar__logo img {
+  border-radius: 0.5rem;
+}
+
+.navbar__title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/*
+ * Links to the sibling Moco apps (see SIBLING_APPS in docusaurus.config.ts).
+ * Docusaurus only knows they are not its own routes, so it decorates them with
+ * the external-link glyph — but they are same-host, same-tab navigations, and
+ * the glyph promises a new window that never opens.
+ */
+.sibling-app-link svg[class*='iconExternalLink'] {
+  display: none;
+}
+
+/* Inline code as a chip, the way the console renders identifiers. */
+:not(pre) > code {
+  border: 1px solid var(--ifm-toc-border-color);
+  padding: 0.15rem 0.35rem;
+  vertical-align: baseline;
+}
+
+/* The console's single focus treatment, rather than the browser default. */
+:focus-visible {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: hsl(243, 75%, 58%, 0.2);
+}
