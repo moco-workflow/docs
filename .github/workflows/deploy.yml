@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Build website
+        env:
+          VITE_PRODUCTION_URL: ${{ vars.VITE_PRODUCTION_URL }}
+          VITE_SIBLING_APPS_BASE_URL: ${{ vars.VITE_SIBLING_APPS_BASE_URL }}
         run: npm run build
 
       - name: Upload Build Artifact
