@@ -5,7 +5,7 @@ Internal design documenations are stored in `moco-core/docs`.
 Documentation in this project should focus on core concepts of Moco workflow and how to
 to build moco workflows, not implementation details of moco platform.
 
-For example, for activities, moco-doc should explain what activity is and how to use them in
+For example, for activities, moco-docs should explain what activity is and how to use them in
 wfspec from high level, and provide reference to activities in terms of input/output contract,
 and wfspec example on how to use them. how to implement a new activity in python using the
 moco activity framework belongs to tech design doc in moco-core.

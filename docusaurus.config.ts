@@ -4,16 +4,33 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
+// Build-time settings. Docusaurus evaluates this file in Node at `docusaurus
+// build` / `start`, so these are read from the environment then and baked into
+// the static output; changing them needs a rebuild. Trailing slashes are
+// stripped: `url` must not end in one, and the sibling base is joined to paths
+// that already start with one.
+//
+// VITE_SIBLING_APPS_BASE_URL - origin (optionally with a path prefix) the sibling
+//   apps are served from. Empty, the default, means this same host.
+// VITE_PRODUCTION_URL - this site's production origin (`config.url`).
+const SIBLING_APPS_BASE_URL = (process.env.VITE_SIBLING_APPS_BASE_URL ?? '').replace(/\/+$/, '');
+const PRODUCTION_URL = (process.env.VITE_PRODUCTION_URL || 'https://www.moco-workflow.com').replace(
+  /\/+$/,
+  '',
+);
+
 /**
- * The sibling Moco apps. All of them are served from this same host root by the
- * shared nginx (see `moco-nginx/conf.d/locations.conf`), so navigating to one is
- * an ordinary same-tab link — keep this set and its labels in step with the
- * switchers in moco-home, moco-ui and moco-apps/*.
+ * The sibling Moco apps. By default all of them are served from this same host
+ * root by the shared nginx (see `moco-nginx/conf.d/locations.conf`), so
+ * navigating to one is an ordinary same-tab link; `VITE_SIBLING_APPS_BASE_URL`
+ * points them at another origin instead. Keep this set and its labels in step
+ * with the switchers in moco-home, moco-ui and moco-apps/*.
  *
  * None of these are Docusaurus routes, which is why each needs three opt-outs:
- * `pathname://` keeps the link out of the client-side router, `autoAddBaseUrl`
- * keeps `/docs/` off the front of the path, and `target: '_self'` overrides the
- * `_blank` Docusaurus adds to anything it reads as external.
+ * `pathname://` keeps a same-host link out of the client-side router (an
+ * absolute URL stays out of it on its own), `autoAddBaseUrl` keeps `/docs/` off
+ * the front of the path, and `target: '_self'` overrides the `_blank` Docusaurus
+ * adds to anything it reads as external.
  */
 const SIBLING_APPS = [
   {label: 'Home', path: '/'},
@@ -24,7 +41,7 @@ const SIBLING_APPS = [
 
 const siblingAppLink = ({label, path}: {label: string; path: string}) => ({
   label,
-  href: `pathname://${path}`,
+  href: SIBLING_APPS_BASE_URL ? `${SIBLING_APPS_BASE_URL}${path}` : `pathname://${path}`,
   target: '_self',
   autoAddBaseUrl: false,
   // Hides the external-link glyph: these stay on the site, in this tab.
@@ -45,8 +62,8 @@ const config: Config = {
   // change as you move between the apps.
   favicon: 'img/moco-mark.svg',
 
-  // Set the production url of your site here
-  url: 'https://www.moco-workflow.com',
+  // Production origin; set with VITE_PRODUCTION_URL at build time (see the top).
+  url: PRODUCTION_URL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/docs/',
@@ -86,7 +103,7 @@ const config: Config = {
           routeBasePath: '/',
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/moco-workflow/moco/tree/main/moco-doc/',
+            'https://github.com/moco-workflow/moco-docs/',
           // `*.draft.md` files hold working notes for a doc that is not finished yet;
           // they must not ship as pages on the user-facing site.
           exclude: ['**/temp/**', '**/*.draft.md'],
@@ -113,7 +130,7 @@ const config: Config = {
       items: [
         ...siteNavbarItems,
         {
-          href: 'https://github.com/moco-workflow/moco-doc',
+          href: 'https://github.com/moco-workflow/docs',
           label: 'GitHub',
           position: 'right',
         },

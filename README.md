@@ -26,6 +26,21 @@ npm run build
 
 This command generates static content into the `build` directory and can be served using any static contents hosting service.
 
+### Build-time configuration
+
+`docusaurus.config.ts` reads these environment variables when the site is built (or `npm start`
+runs). They are baked into the output, so changing one needs a rebuild. `.env` files are not read.
+
+| Variable | Default | Effect |
+|---|---|---|
+| `VITE_SIBLING_APPS_BASE_URL` | empty | Origin the sibling apps (Home, Playground, Agent, Console) are linked at. Empty links them on this same host. |
+| `VITE_PRODUCTION_URL` | `https://www.moco-workflow.com` | The site's production URL (`config.url`): canonical links, sitemap, `og:url`. |
+
+```bash
+VITE_SIBLING_APPS_BASE_URL=https://www.moco-workflow.com npm run build
+VITE_PRODUCTION_URL=http://localhost:8080 npm run build
+```
+
 ### Deployment
 
 Using SSH:
